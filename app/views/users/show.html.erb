@@ -1,13 +1,23 @@
 <h1><%= current_user.email %></h1>
 
-<% if !current_user.profile %>
-    <%= link_to 'Create Profile', new_profile_path %>
-<% else %>
-    <%= current_user.profile.name %><br>
-    <%= current_user.profile.location %><br>
-    <%= current_user.profile.age %>
-<% end %>
+<div>
+    <% if !current_user.profile %>
+        <%= link_to 'Create Profile', new_profile_path %>
+    <% else %>
+        <%= current_user.profile.name %><br>
+        <%= current_user.profile.location %><br>
+        <%= current_user.profile.age %>
+    <% end %>
+</div>
 
-<% current_user.posts.each do |post| %>
-    <%= post.body %><br>
-<% end %>
+<div>
+    <% current_user.posts.each do |post| %>
+        <p>
+            <%= post.body %>
+            <% if current_user.id == post.user_id %>
+                <%= link_to "edit", edit_post_path(post) %>
+                <%= link_to 'delete', post_path(post), method: :delete %>
+            <% end %>
+        </p>
+    <% end %>
+</div>
