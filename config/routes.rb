@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :posts
   get '/users/:id', to: 'users#show'
+  get '/users', to: 'users#index'
   root to: 'users#show'
 end

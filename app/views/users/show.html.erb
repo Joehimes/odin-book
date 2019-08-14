@@ -21,3 +21,19 @@
         </p>
     <% end %>
 </div>
+
+<div>
+    <h3>Friends</h3>
+    <% current_user.friends.each do |friend| %>
+        <p><%= friend.profile.name %></p>
+        <%= link_to "delete", friends_destroy_path(id: friend.id) %>
+    <% end %>
+</div>
+
+<div>
+    <h3>Friend Requests</h3>
+    <% current_user.friend_requests.each do |request| %>
+        <p><%= request.friend.profile.name %><p>
+        <%= link_to "accept", friend_request_path(request), method: :patch %>
+    <% end %>
+</div>

@@ -1,0 +1,16 @@
+<h1>Users</h1>
+
+<% @users.each do |user| %>
+    <% if user.profile %>
+        <div>
+            <%= user.profile.name %>
+            <% if !current_user.friends.include?(user) && !current_user.pending_friends.include?(user) && current_user.id != user.id%>
+                <%= link_to "friend", friend_requests_path(friend_id: user.id), method: :post %>
+            <% elsif current_user.pending_friends.include?(user) %>
+                (pending request)
+            <% end %>
+        </div>
+    <% else %>
+        <%= user.email %><br>
+    <% end %>
+<% end %>
