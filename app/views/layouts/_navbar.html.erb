@@ -15,5 +15,10 @@
         <%= link_to 'Sign up', new_user_registration_path, class: "nav-item nav-link" %>
       <% end %>
     </div>
+    <% if user_signed_in? %>
+      <% if current_user.friend_requests.any? %>
+        <%= link_to pluralize(current_user.friend_requests.count, 'requests'), root_path, class: 'nav-item nav-link' %>
+      <% end %>
+    <% end %>
   </div>
 </nav>
