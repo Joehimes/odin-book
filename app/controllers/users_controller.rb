@@ -5,7 +5,7 @@ class UsersController < ApplicationController
         @user = current_user
         @incoming = FriendRequest.where(friend: current_user)
         @outgoing = current_user.friend_requests
-        @feed_items = current_user.feed
+        @feed_items = current_user.feed.order('created_at DESC')
     end
 
     def index
