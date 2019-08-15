@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <%= link_to "Home", root_path, class: "nav-item nav-link active" %>
-      <a class="nav-item nav-link" href="#">Features</a>
+      <%= link_to "Users", users_path, class: "nav-item nav-link" %>
       <%= link_to "New Post", new_post_path, class: "nav-item nav-link" %>
       <% if user_signed_in? %>
         <%= link_to 'Signout', destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
@@ -15,10 +15,12 @@
         <%= link_to 'Sign up', new_user_registration_path, class: "nav-item nav-link" %>
       <% end %>
     </div>
-    <% if user_signed_in? %>
-      <% if current_user.friend_requests.any? %>
-        <%= link_to pluralize(current_user.friend_requests.count, 'requests'), root_path, class: 'nav-item nav-link' %>
+    <div>
+      <% if user_signed_in? %>
+        <% if FriendRequest.where(friend: current_user).any? %>
+          <%= link_to pluralize(FriendRequest.where(friend: current_user), 'requests'), root_path, class: 'nav-item nav-link' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </nav>

@@ -13,5 +13,9 @@ class User < ApplicationRecord
   def remove_friend(friend)
     current_user.friends.destroy(friend)
   end
+
+  def feed
+    Post.where("user_id IN (?) OR user_id = ?", friend_ids, id)
+  end
   
 end

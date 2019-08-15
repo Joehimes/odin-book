@@ -11,6 +11,7 @@ class FriendRequestsController < ApplicationController
         @friend_request = current_user.friend_requests.new(friend: friend)
 
         if @friend_request.save
+            flash[:notice] = "You have a new friend!"
             redirect_back(fallback_location: root_path)
         else
             render json: @friend_request.errors, status: :unprocessable_entity
@@ -20,12 +21,11 @@ class FriendRequestsController < ApplicationController
     def update
         @friend_request.accept
         redirect_back(fallback_location: root_path)
-        # head :no_content
     end
 
     def destroy
         @friend_request.destroy
-        head :no_content
+        redirect_back(fallback_location: root_path)
     end
 
     private
